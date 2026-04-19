@@ -42,7 +42,7 @@ app.use(
   }),
 );
 app.use(helmet());
-app.use(limiter());
-//route
+app.use(limiter);
+//routes & error handlers
 app.use(notFound);
 export default app;
