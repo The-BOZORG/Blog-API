@@ -26,6 +26,21 @@ if (config.NODE_ENV === 'development') {
   );
 }
 
+if (config.NODE_ENV === 'production') {
+  transports.push(
+    new winston.transports.File({
+      filename: 'logs/error.log',
+      level: 'error',
+    }),
+  );
+
+  transports.push(
+    new winston.transports.File({
+      filename: 'logs/combined.log',
+    }),
+  );
+}
+
 const logger = winston.createLogger({
   level: config.LOG_LEVEL || 'info',
   format: combine(timestamp(), errors({ stack: true }), json()),

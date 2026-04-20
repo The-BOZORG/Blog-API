@@ -34,7 +34,7 @@ const corsOptions = {
 //middlewares
 app.use(cors(corsOptions));
 app.use(express.json({ limit: '10kb' }));
-app.use(cookieParser());
+app.use(cookieParser(config.COOKIE_SECRET));
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(
