@@ -32,7 +32,12 @@ const register = asyncHandler(async (req, res) => {
 
   const refreshToken = createTokenCookie(res, newUser._id);
 
-  await Token.create({ refreshToken: refreshToken, user: newUser._id });
+  await Token.create({
+    refreshToken: refreshToken,
+    user: newUser._id,
+    userAgent: req.headers['user-agent'] || 'unknown',
+    ip: req.ip || req.connection.remoteAddress,
+  });
 
   logger.info('refresh token created', {
     userId: newUser._id,

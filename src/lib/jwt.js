@@ -26,11 +26,13 @@ export const verifyRefreshToken = (token) => {
 export const createTokenCookie = (res, userId) => {
   const refreshToken = generateRefreshToken(userId);
 
+  const cookieMaxAge = 7 * 24 * 60 * 60 * 1000;
+
   res.cookie('refreshToken', refreshToken, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
-    maxAge: config.REFRESH_TOKEN_EXPIRY,
+    maxAge: cookieMaxAge,
     signed: true,
   });
 
