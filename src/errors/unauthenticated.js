@@ -1,4 +1,4 @@
-import customError from './custom-error';
+import customError from './custom-error.js';
 
 class authenticatedError extends customError {
   constructor(message) {

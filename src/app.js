@@ -14,6 +14,9 @@ import limiter from './lib/limiter.js';
 import notFound from './middlewares/404.js';
 import errorHandler from './middlewares/error-handler.js';
 
+//route
+import Routes from './routes/index.js';
+
 //core
 const corsOptions = {
   origin(origin, callback) {
@@ -44,6 +47,9 @@ app.use(
 );
 app.use(helmet());
 app.use(limiter);
+
+app.use('/api', Routes);
+
 //routes & error handlers
 app.use(notFound);
 app.use(errorHandler);

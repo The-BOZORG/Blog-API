@@ -1,6 +1,8 @@
-import { Route } from 'express';
+import { Router } from 'express';
 
-const router = Route();
+const router = Router();
+
+import authRouter from './auth.js';
 
 router.get('/', (req, res) => {
   res.status(200).json({
@@ -9,3 +11,7 @@ router.get('/', (req, res) => {
     timeStamp: new Date().toString(),
   });
 });
+
+router.use('/auth', authRouter);
+
+export default router;

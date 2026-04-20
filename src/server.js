@@ -6,6 +6,7 @@ import { logger } from './lib/winstone.js';
 const startServer = async () => {
   try {
     await connectToDB();
+
     app.listen(config.PORT, () => {
       logger.info(`Server is running on http://localhost:${config.PORT}`);
     });

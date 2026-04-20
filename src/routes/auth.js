@@ -3,9 +3,8 @@ import { Router } from 'express';
 
 const router = Router();
 
-import register from '../controllers/auth/register';
-
-import User from '../models/user';
+import register from '../controllers/auth/register.js';
+import validationError from '../middlewares/validation-error.js';
 
 router.post(
   '/register',
@@ -28,5 +27,8 @@ router.post(
     .withMessage('role must be string')
     .isIn(['admin', 'user'])
     .withMessage('role must be either admin or user'),
+  validationError,
   register,
 );
+
+export default router;

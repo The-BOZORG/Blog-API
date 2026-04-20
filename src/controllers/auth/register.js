@@ -1,11 +1,12 @@
-import config from '../../configs';
-import { logger } from '../../lib/winstone';
-import User from '../../models/user';
+import config from '../../configs/index.js';
+import { logger } from '../../lib/winstone.js';
+import User from '../../models/user.js';
 import Token from '../../models/refresh-token.js';
 import { generateAccessToken, createTokenCookie } from '../../lib/jwt.js';
 import asyncHandler from '../../middlewares/asyncHandler.js';
 import unauthorizedError from '../../errors/auathroized.js';
 import badRequestError from '../../errors/bad-request.js';
+import { generateUsername } from '../../utils/index.js';
 
 const register = asyncHandler(async (req, res) => {
   const { email, password, role } = req.body;
@@ -22,6 +23,8 @@ const register = asyncHandler(async (req, res) => {
     );
     throw new unauthorizedError('you can not register as admin', 403);
   }
+
+  const username = generateUsername();
 
   const newUser = await User.create({ username, email, password, role });
 

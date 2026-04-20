@@ -15,10 +15,10 @@ const authenticate = asyncHandler(async (req, res, next) => {
     try {
       const jwtPayload = verifyAccessToken(token);
       req.userId = jwtPayload.userId;
-      return next();
     } catch (error) {
       throw new authenticatedError('invalid access token', 401);
     }
+    return next();
   }
 
   const refreshToken = req.signedCookies.refreshToken;
