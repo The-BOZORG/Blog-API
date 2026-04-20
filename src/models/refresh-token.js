@@ -5,6 +5,7 @@ const TokenSchema = new mongoose.Schema(
     refreshToken: {
       type: String,
       required: true,
+      index: true,
     },
     ip: {
       type: String,
@@ -17,6 +18,7 @@ const TokenSchema = new mongoose.Schema(
     isValid: {
       type: Boolean,
       required: true,
+      default: true,
     },
     user: {
       type: mongoose.Types.ObjectId,

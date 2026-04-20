@@ -12,6 +12,7 @@ import config from './configs/index.js';
 import { logger } from './lib/winstone.js';
 import limiter from './lib/limiter.js';
 import notFound from './middlewares/404.js';
+import errorHandler from './middlewares/error-handler.js';
 
 //core
 const corsOptions = {
@@ -45,4 +46,5 @@ app.use(helmet());
 app.use(limiter);
 //routes & error handlers
 app.use(notFound);
+app.use(errorHandler);
 export default app;
