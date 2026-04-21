@@ -2,7 +2,7 @@ import { generateAccessToken, createTokenCookie } from '../../lib/jwt.js';
 import User from '../../models/user.js';
 import Token from '../../models/refresh-token.js';
 import { logger } from '../../lib/winstone.js';
-import { asyncHandler } from '../../middlewares/asyncHandler.js';
+import asyncHandler from '../../middlewares/asyncHandler.js';
 import notFoundError from '../../errors/not-found.js';
 import authenticatedError from '../../middlewares/autentication.js';
 
