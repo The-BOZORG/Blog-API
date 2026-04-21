@@ -15,15 +15,19 @@ const TokenSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    isValid: {
-      type: Boolean,
+    deviceId: {
+      type: String,
       required: true,
-      default: true,
     },
     user: {
       type: mongoose.Types.ObjectId,
       ref: 'User',
       required: true,
+    },
+    expiresAt: {
+      type: Date,
+      default: () => Date.now() + 7 * 24 * 60 * 60 * 1000,
+      index: { expires: '7d' },
     },
   },
   { timestamps: true },

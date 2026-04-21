@@ -34,7 +34,7 @@ const authenticate = asyncHandler(async (req, res, next) => {
     refreshToken: refreshToken,
   });
 
-  if (!existingToken || !existingToken?.isValid) {
+  if (!existingToken) {
     throw new authenticatedError('invalid refresh token', 401);
   }
 

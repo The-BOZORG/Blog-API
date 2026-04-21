@@ -28,13 +28,15 @@ const register = asyncHandler(async (req, res) => {
 
   const newUser = await User.create({ username, email, password, role });
 
-  const accessToken = generateAccessToken(newUser._id);
+  const deviceId = `${req.headers['user-agent']}-${req.ip}`;
 
+  const accessToken = generateAccessToken(newUser._id);
   const refreshToken = createTokenCookie(res, newUser._id);
 
   await Token.create({
     refreshToken: refreshToken,
     user: newUser._id,
+    deviceId,
     userAgent: req.headers['user-agent'] || 'unknown',
     ip: req.ip || req.connection.remoteAddress,
   });
