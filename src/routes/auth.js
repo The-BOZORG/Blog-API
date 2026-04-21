@@ -6,6 +6,7 @@ const router = Router();
 import register from '../controllers/auth/register.js';
 import login from '../controllers/auth/login.js';
 import logout from '../controllers/auth/logout.js';
+import refreshToken from '../controllers/auth/refresh-token.js';
 
 import authenticate from '../middlewares/autentication.js';
 import validationError from '../middlewares/validation-error.js';
@@ -52,6 +53,16 @@ router.post(
     .withMessage('password must be more than 6 characters'),
   validationError,
   login,
+);
+
+router.post(
+  '/refreshToken',
+  cookie('refreshToken')
+    .notEmpty()
+    .withMessage('refreshToken required')
+    .isJWT()
+    .withMessage('invalid refreshToken'),
+  refreshToken,
 );
 
 router.post('/logout', authenticate, logout);
