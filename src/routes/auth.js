@@ -5,6 +5,9 @@ const router = Router();
 
 import register from '../controllers/auth/register.js';
 import login from '../controllers/auth/login.js';
+import logout from '../controllers/auth/logout.js';
+
+import authenticate from '../middlewares/autentication.js';
 import validationError from '../middlewares/validation-error.js';
 
 router.post(
@@ -50,5 +53,7 @@ router.post(
   validationError,
   login,
 );
+
+router.post('/logout', authenticate, logout);
 
 export default router;

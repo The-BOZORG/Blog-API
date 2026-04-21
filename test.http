@@ -16,3 +16,6 @@ Content-Type: application/json
   "email":"soroushfalaki24@gmail.com",
   "password":"123456"
 }
+
+###logout
+POST http://localhost:3000/api/auth/logout
