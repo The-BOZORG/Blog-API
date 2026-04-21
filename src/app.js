@@ -34,23 +34,34 @@ const corsOptions = {
   credentials: true,
 };
 
-//middlewares
+// Security headers
+app.use(helmet());
+
+// Logging
+app.use(morgan('dev'));
+
+// CORS
 app.use(cors(corsOptions));
+
+// parsers
 app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser(config.COOKIE_SECRET));
 app.use(express.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+
+// Compression
 app.use(
   compression({
     threshold: 1024,
   }),
 );
-app.use(helmet());
+
+// Rate limiters
 app.use(limiter);
 
+// Routes
 app.use('/api', Routes);
 
-//routes & error handlers
+// Error handler
 app.use(notFound);
 app.use(errorHandler);
 export default app;
