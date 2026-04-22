@@ -7,11 +7,11 @@ import getCurrentUser from '../controllers/user/get-current-user.js';
 
 import authorize from '../middlewares/authorize.js';
 import validationError from '../middlewares/validation-error.js';
-import requireAccessToken from '../middlewares/require-accessToken.js';
+import authenticate from '../middlewares/autentication.js';
 
 router.get(
   '/current',
-  requireAccessToken,
+  authenticate,
   authorize(['admin', 'user']),
   getCurrentUser,
 );

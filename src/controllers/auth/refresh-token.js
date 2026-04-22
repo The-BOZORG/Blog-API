@@ -1,5 +1,5 @@
 import Token from '../../models/refresh-token.js';
-import { generateAccessToken, createTokenCookie } from '../../lib/jwt.js';
+import { generateAccessToken, verifyRefreshToken } from '../../lib/jwt.js';
 import asyncHandler from '../../middlewares/asyncHandler.js';
 
 import authenticatedError from '../../errors/unauthenticated.js';
@@ -17,7 +17,14 @@ const refreshToken = asyncHandler(async (req, res) => {
     throw new authenticatedError('invalid refresh token', 401);
   }
 
-  const accessToken = generateAccessToken(req.userId);
+  const decoded = verifyRefreshToken({ token: refreshTokenCookie });
+
+  const payload = {
+    userId: decoded.userId,
+    role: decoded.role,
+  };
+
+  const accessToken = generateAccessToken({ payload });
 
   res.status(200).json({ accessToken });
 });

@@ -1,7 +1,7 @@
-import asyncHandler from '../middleware/asyncHandler.js';
+import asyncHandler from '../middlewares/asyncHandler.js';
 import User from '../models/user.js';
-import authorizationError from '../errors/authorizationError.js';
 import notFoundError from '../errors/not-found.js';
+import unauthorizedError from '../errors/auathroized.js';
 
 const authorize = (...roles) => {
   return asyncHandler(async (req, res, next) => {
@@ -14,7 +14,7 @@ const authorize = (...roles) => {
     }
 
     if (!roles.includes(user.role)) {
-      throw new authorizationError('Access denied', 403);
+      throw new unauthorizedError('Access denied', 403);
     }
 
     next();

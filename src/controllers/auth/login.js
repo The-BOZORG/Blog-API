@@ -1,4 +1,8 @@
-import { generateAccessToken, createTokenCookie } from '../../lib/jwt.js';
+import {
+  generateAccessToken,
+  createTokenCookie,
+  createPayload,
+} from '../../lib/jwt.js';
 import User from '../../models/user.js';
 import Token from '../../models/refresh-token.js';
 import { logger } from '../../lib/winstone.js';
@@ -23,14 +27,15 @@ const login = asyncHandler(async (req, res) => {
   }
 
   const deviceId = `${req.headers['user-agent']}-${req.ip}`;
-  await Token.deleteOne({ user: user.userId, deviceId });
+  await Token.deleteOne({ user: user._id, deviceId });
 
-  const accessToken = generateAccessToken(user.userId);
-  const refreshToken = createTokenCookie(res, user.userId);
+  const payload = createPayload(user);
+  const accessToken = generateAccessToken({ payload });
+  const refreshToken = createTokenCookie({ res, user: payload });
 
   await Token.create({
     refreshToken: refreshToken,
-    user: user.userId,
+    user: user._id,
     deviceId,
     userAgent: req.headers['user-agent'] || 'unknown',
     ip: req.ip || req.connection.remoteAddress,

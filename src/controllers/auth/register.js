@@ -2,7 +2,11 @@ import config from '../../configs/index.js';
 import { logger } from '../../lib/winstone.js';
 import User from '../../models/user.js';
 import Token from '../../models/refresh-token.js';
-import { generateAccessToken, createTokenCookie } from '../../lib/jwt.js';
+import {
+  generateAccessToken,
+  createTokenCookie,
+  createPayload,
+} from '../../lib/jwt.js';
 import asyncHandler from '../../middlewares/asyncHandler.js';
 import unauthorizedError from '../../errors/auathroized.js';
 import badRequestError from '../../errors/bad-request.js';
@@ -30,19 +34,20 @@ const register = asyncHandler(async (req, res) => {
 
   const deviceId = `${req.headers['user-agent']}-${req.ip}`;
 
-  const accessToken = generateAccessToken(newUser.userId);
-  const refreshToken = createTokenCookie(res, newUser.userId);
+  const payload = createPayload(newUser);
+  const accessToken = generateAccessToken({ payload });
+  const refreshToken = createTokenCookie({ res, user: payload });
 
   await Token.create({
     refreshToken: refreshToken,
-    user: newUser.userId,
+    user: newUser._id,
     deviceId,
     userAgent: req.headers['user-agent'] || 'unknown',
     ip: req.ip || req.connection.remoteAddress,
   });
 
   logger.info('refresh token created', {
-    userId: newUser.userId,
+    userId: newUser._id,
     token: refreshToken,
   });
 

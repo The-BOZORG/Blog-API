@@ -23,4 +23,8 @@ POST http://localhost:3000/api/auth/logout
 
 ###refreshToken
 POST http://localhost:3000/api/auth/refreshToken
-Authorization: Bearer
+
+
+###current
+GET http://localhost:3000/api/user/current
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWU4ODNlZTE2ZThlOGIzZGI2NDFkMzgiLCJyb2xlIjoidXNlciIsImlhdCI6MTc3Njg0NTgxMSwiZXhwIjoxNzc2ODQ5NDExLCJzdWIiOiJhY2Nlc3NUb2tlbiJ9.puRzJ2uZMyFneWoN4Shq9ULSuDZY0r8oOwqNDaj7Awc

@@ -1,30 +1,30 @@
 import config from '../configs/index.js';
 import jwt from 'jsonwebtoken';
 
-export const generateAccessToken = (userId) => {
-  return jwt.sign({ userId }, config.JWT_ACCESS_SECRET, {
+export const generateAccessToken = ({ payload }) => {
+  return jwt.sign(payload, config.JWT_ACCESS_SECRET, {
     expiresIn: config.ACCESS_TOKEN_EXPIRY,
     subject: 'accessToken',
   });
 };
 
-export const generateRefreshToken = (userId) => {
-  return jwt.sign({ userId }, config.JWT_REFRESH_SECRET, {
+export const generateRefreshToken = ({ payload }) => {
+  return jwt.sign(payload, config.JWT_REFRESH_SECRET, {
     expiresIn: config.REFRESH_TOKEN_EXPIRY,
     subject: 'refreshToken',
   });
 };
 
-export const verifyAccessToken = (token) => {
+export const verifyAccessToken = ({ token }) => {
   return jwt.verify(token, config.JWT_ACCESS_SECRET);
 };
 
-export const verifyRefreshToken = (token) => {
+export const verifyRefreshToken = ({ token }) => {
   return jwt.verify(token, config.JWT_REFRESH_SECRET);
 };
 
-export const createTokenCookie = (res, userId) => {
-  const refreshToken = generateRefreshToken(userId);
+export const createTokenCookie = ({ res, user }) => {
+  const refreshToken = generateRefreshToken({ payload: user });
 
   const cookieMaxAge = 7 * 24 * 60 * 60 * 1000;
 
@@ -37,4 +37,8 @@ export const createTokenCookie = (res, userId) => {
   });
 
   return refreshToken;
+};
+
+export const createPayload = (user) => {
+  return { userId: user._id, role: user.role };
 };
