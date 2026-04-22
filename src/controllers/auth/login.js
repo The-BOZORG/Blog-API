@@ -18,12 +18,12 @@ const login = asyncHandler(async (req, res) => {
     .exec();
 
   if (!user) {
-    throw new notFoundError('user not found', 404);
+    throw new notFoundError('invalid email or password', 401);
   }
 
   const passwordCorrect = await user.comparePassword(password);
   if (!passwordCorrect) {
-    throw new authenticatedError('invalid login', 401);
+    throw new authenticatedError('invalid email or password', 401);
   }
 
   const deviceId = `${req.headers['user-agent']}-${req.ip}`;

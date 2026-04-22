@@ -11,17 +11,20 @@ const refreshToken = asyncHandler(async (req, res) => {
     throw new authenticatedError('refresh token not found', 401);
   }
 
-  const tokenExist = await Token.exists({ refreshToken: refreshTokenCookie });
+  const refreshPayload = verifyRefreshToken(refreshTokenCookie);
+
+  const tokenExist = await Token.exists({
+    refreshToken: refreshTokenCookie,
+    deviceId: `${req.headers['user-agent']}-${req.ip}`,
+  });
 
   if (!tokenExist) {
     throw new authenticatedError('invalid refresh token', 401);
   }
 
-  const decoded = verifyRefreshToken({ token: refreshTokenCookie });
-
   const payload = {
-    userId: decoded.userId,
-    role: decoded.role,
+    userId: refreshPayload.userId,
+    role: refreshPayload.role,
   };
 
   const accessToken = generateAccessToken({ payload });

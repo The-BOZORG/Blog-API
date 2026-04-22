@@ -15,11 +15,11 @@ export const generateRefreshToken = ({ payload }) => {
   });
 };
 
-export const verifyAccessToken = ({ token }) => {
+export const verifyAccessToken = (token) => {
   return jwt.verify(token, config.JWT_ACCESS_SECRET);
 };
 
-export const verifyRefreshToken = ({ token }) => {
+export const verifyRefreshToken = (token) => {
   return jwt.verify(token, config.JWT_REFRESH_SECRET);
 };
 
