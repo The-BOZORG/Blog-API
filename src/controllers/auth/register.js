@@ -14,7 +14,7 @@ const register = asyncHandler(async (req, res) => {
   const emailExist = await User.findOne({ email }).lean().exec();
 
   if (emailExist) {
-    throw new badRequestError('email already exist', 401);
+    throw new badRequestError('email already exist', 400);
   }
 
   if (role === 'admin' && !config.WHITELIST_ADMIN_MAIL.includes(email)) {
@@ -30,19 +30,19 @@ const register = asyncHandler(async (req, res) => {
 
   const deviceId = `${req.headers['user-agent']}-${req.ip}`;
 
-  const accessToken = generateAccessToken(newUser._id);
-  const refreshToken = createTokenCookie(res, newUser._id);
+  const accessToken = generateAccessToken(newUser.userId);
+  const refreshToken = createTokenCookie(res, newUser.userId);
 
   await Token.create({
     refreshToken: refreshToken,
-    user: newUser._id,
+    user: newUser.userId,
     deviceId,
     userAgent: req.headers['user-agent'] || 'unknown',
     ip: req.ip || req.connection.remoteAddress,
   });
 
   logger.info('refresh token created', {
-    userId: newUser._id,
+    userId: newUser.userId,
     token: refreshToken,
   });
 

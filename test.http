@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
   "email":"ali@yahoo.com",
-  "password":"123456",
+  "password":"123456"
 }
 
 
@@ -13,9 +13,14 @@ POST http://localhost:3000/api/auth/login
 Content-Type: application/json
 
 {
-  "email":"soroushfalaki24@gmail.com",
+  "email":"ali@yahoo.com",
   "password":"123456"
 }
 
 ###logout
 POST http://localhost:3000/api/auth/logout
+
+
+###refreshToken
+POST http://localhost:3000/api/auth/refreshToken
+Authorization: Bearer

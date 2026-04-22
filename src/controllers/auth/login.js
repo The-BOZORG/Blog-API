@@ -10,7 +10,7 @@ const login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email })
-    .select('username email +password role')
+    .select('username email +password +role')
     .exec();
 
   if (!user) {
@@ -23,14 +23,14 @@ const login = asyncHandler(async (req, res) => {
   }
 
   const deviceId = `${req.headers['user-agent']}-${req.ip}`;
-  await Token.deleteOne({ user: user._id, deviceId });
+  await Token.deleteOne({ user: user.userId, deviceId });
 
-  const accessToken = generateAccessToken(user._id);
-  const refreshToken = createTokenCookie(res, user._id);
+  const accessToken = generateAccessToken(user.userId);
+  const refreshToken = createTokenCookie(res, user.userId);
 
   await Token.create({
     refreshToken: refreshToken,
-    user: user._id,
+    user: user.userId,
     deviceId,
     userAgent: req.headers['user-agent'] || 'unknown',
     ip: req.ip || req.connection.remoteAddress,
