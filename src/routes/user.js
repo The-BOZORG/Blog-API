@@ -12,7 +12,7 @@ import authenticate from '../middlewares/autentication.js';
 router.get(
   '/current',
   authenticate,
-  authorize(['admin', 'user']),
+  authorize('admin', 'user'),
   getCurrentUser,
 );
 
