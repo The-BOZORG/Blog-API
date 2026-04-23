@@ -7,6 +7,7 @@ import getCurrentUser from '../controllers/user/get-current-user.js';
 import getUser from '../controllers/user/get-user.js';
 import getAllUsers from '../controllers/user/get-all-user.js';
 import updateUser from '../controllers/user/update-user.js';
+import deleteUser from '../controllers/user/delete-user.js';
 
 import authorize from '../middlewares/authorize.js';
 import validationError from '../middlewares/validation-error.js';
@@ -77,6 +78,15 @@ router.get(
   param('userId').notEmpty().isMongoId().withMessage('invalid user id'),
   validationError,
   getUser,
+);
+
+router.delete(
+  '/:userId',
+  authenticate,
+  authorize('admin'),
+  param('userId').notEmpty().isMongoId().withMessage('invalid user id'),
+  validationError,
+  deleteUser,
 );
 
 export default router;
