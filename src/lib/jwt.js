@@ -33,7 +33,7 @@ export const createTokenCookie = ({ res, user }) => {
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
     maxAge: cookieMaxAge,
-    signed: true,
+    //signed: true,
   });
 
   return refreshToken;

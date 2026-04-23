@@ -4,7 +4,7 @@ import asyncHandler from '../../middlewares/asyncHandler.js';
 import Token from '../../models/refresh-token.js';
 
 const logout = asyncHandler(async (req, res) => {
-  const refreshToken = req.signedCookies.refreshToken;
+  const refreshToken = req.cookies.authorization;
 
   if (refreshToken) {
     await Token.deleteOne({ refreshToken: refreshToken });

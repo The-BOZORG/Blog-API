@@ -62,6 +62,7 @@ router.post(
     .withMessage('refreshToken required')
     .isJWT()
     .withMessage('invalid refreshToken'),
+  validationError,
   refreshToken,
 );
 

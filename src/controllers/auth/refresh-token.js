@@ -5,7 +5,7 @@ import asyncHandler from '../../middlewares/asyncHandler.js';
 import authenticatedError from '../../errors/unauthenticated.js';
 
 const refreshToken = asyncHandler(async (req, res) => {
-  const refreshTokenCookie = req.signedCookies.refreshToken;
+  const refreshTokenCookie = req.cookies?.refreshToken;
 
   if (!refreshTokenCookie) {
     throw new authenticatedError('refresh token not found', 401);

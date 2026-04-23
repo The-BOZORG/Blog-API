@@ -4,7 +4,7 @@ const errorHandler = (err, req, res, next) => {
     msg: err.message || 'Something went wrong try again later',
   };
 
-  // Validation error
+  // validation error
   if (err.name === 'ValidationError') {
     customError.msg = Object.values(err.errors)
       .map((item) => item.message)
@@ -12,7 +12,7 @@ const errorHandler = (err, req, res, next) => {
     customError.statusCode = 400;
   }
 
-  // Duplicate error
+  // duplicate error
   if (err.code && err.code === 11000) {
     customError.msg = `Duplicate value entered for ${Object.keys(
       err.keyValue,
@@ -20,7 +20,7 @@ const errorHandler = (err, req, res, next) => {
     customError.statusCode = 400;
   }
 
-  // Cast error
+  // cast error
   if (err.name === 'CastError') {
     customError.msg = `No item found with id: ${err.value}`;
     customError.statusCode = 404;
@@ -37,7 +37,7 @@ const errorHandler = (err, req, res, next) => {
     customError.statusCode = 401;
   }
 
-  // Syntax error
+  // syntax error
   if (err instanceof SyntaxError && err.status === 400 && 'body' in err) {
     customError.msg = 'Invalid JSON format';
     customError.statusCode = 400;
