@@ -1,3 +1,5 @@
+import { logger } from '../lib/winstone.js';
+
 const errorHandler = (err, req, res, next) => {
   let customError = {
     statusCode: err.statusCode || 500,
@@ -42,6 +44,17 @@ const errorHandler = (err, req, res, next) => {
     customError.msg = 'Invalid JSON format';
     customError.statusCode = 400;
   }
+
+  logger.error('unhandled error occurred', {
+    message: err.message,
+    stack: err.stack,
+    statusCode: customError.statusCode,
+    path: req.originalUrl,
+    method: req.method,
+    body: req.body,
+    query: req.query,
+    params: req.params,
+  });
 
   const response = { msg: customError.msg };
   if (process.env.NODE_ENV === 'development') {

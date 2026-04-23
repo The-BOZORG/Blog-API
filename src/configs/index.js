@@ -13,7 +13,6 @@ const config = {
   WHITELIST_ORIGINS: ['http://doc.blog.com'],
   MONGO_URI: process.env.MONGO_URI,
   LOG_LEVEL: process.env.LOG_LEVEL,
-  //COOKIE_SECRET: process.env.COOKIE_SECRET,
   JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET,
   JWT_REFRESH_SECRET: process.env.JWT_REFRESH_SECRET,
   ACCESS_TOKEN_EXPIRY: process.env.ACCESS_TOKEN_EXPIRY,

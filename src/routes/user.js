@@ -24,7 +24,8 @@ router.get(
   authorize('admin'),
   query('limit')
     .optional()
-    .isInt({ min: 1, max: 20 }.withMessage('limit must be between 1 to 50')),
+    .isInt({ min: 1, max: 20 })
+    .withMessage('limit must be between 1 to 50'),
   query('offset')
     .optional()
     .isInt({ min: 0 })
