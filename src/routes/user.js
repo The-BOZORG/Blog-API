@@ -6,6 +6,7 @@ const router = Router();
 import getCurrentUser from '../controllers/user/get-current-user.js';
 import getUser from '../controllers/user/get-user.js';
 import getAllUsers from '../controllers/user/get-all-user.js';
+import updateUser from '../controllers/user/update-user.js';
 
 import authorize from '../middlewares/authorize.js';
 import validationError from '../middlewares/validation-error.js';
@@ -32,6 +33,41 @@ router.get(
     .withMessage('offset must positive int'),
   validationError,
   getAllUsers,
+);
+
+router.put(
+  '/update',
+  authenticate,
+  authorize('admin,user'),
+  body('username')
+    .optional()
+    .trim()
+    .isLength({ max: 20 })
+    .withMessage('username must be less than 20 characters'),
+  body('email')
+    .optional()
+    .isLength({ max: 40 })
+    .withMessage('email must be less than 40 characters')
+    .isEmail()
+    .withMessage('invalid email'),
+  body('currentPassword')
+    .if(body('newPassword').exists())
+    .notEmpty()
+    .withMessage('current password is required'),
+  body('newPassword')
+    .optional()
+    .isLength({ min: 6 })
+    .withMessage('new password must be least 6 characters'),
+  body('firstName')
+    .optional()
+    .isLength({ max: 20 })
+    .withMessage('first name must be less than 20 characters'),
+  body('lastName')
+    .optional()
+    .isLength({ max: 20 })
+    .withMessage('last name must be less than 20 characters'),
+  validationError,
+  updateUser,
 );
 
 router.get(
