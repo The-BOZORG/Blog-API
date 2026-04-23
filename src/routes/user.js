@@ -38,7 +38,7 @@ router.get(
 router.put(
   '/update',
   authenticate,
-  authorize('admin,user'),
+  authorize('admin', 'user'),
   body('username')
     .optional()
     .trim()

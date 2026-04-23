@@ -9,6 +9,7 @@ const getUser = asyncHandler(async (req, res) => {
   if (!user) {
     throw new notFoundError('user not found', 404);
   }
+
   res.status(200).json({ user });
 });
 
