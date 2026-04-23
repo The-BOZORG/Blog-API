@@ -40,3 +40,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWU5Z
 
 ###update user
 PUT http://localhost:3000/api/user/update
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWU5ZDQ4YmQyODNhZDdiOTJmNDRiNTUiLCJyb2xlIjoidXNlciIsImlhdCI6MTc3NjkzOTI0NywiZXhwIjoxNzc2OTQyODQ3LCJzdWIiOiJhY2Nlc3NUb2tlbiJ9.5MSqkJawZNSy7AaqHVecaOZTH-1u8EJJcMxqSCHYgf0
+
+{
+  "username":"ali"
+}
+
+###delete user/id (admin)
+DELETE http://localhost:3000/api/user/69e9d48bd283ad7b92f44b55
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWU5ZDQ4YmQyODNhZDdiOTJmNDRiNTUiLCJyb2xlIjoidXNlciIsImlhdCI6MTc3Njk2NDEyMiwiZXhwIjoxNzc2OTY3NzIyLCJzdWIiOiJhY2Nlc3NUb2tlbiJ9.e24DlkZZ5rrG2abKtzTN1WncSUJQfyT6WMeNluO6MhM
