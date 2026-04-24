@@ -4,7 +4,6 @@ import compression from 'compression';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
-import mongoSanitize from 'express-mongo-sanitize';
 
 const app = express();
 
@@ -37,13 +36,6 @@ const corsOptions = {
 
 // security
 app.use(helmet());
-app.use(
-  mongoSanitize({
-    onSanitize: ({ req, key }) => {
-      logger.warn('Sanitized:', key, 'in', req.path);
-    },
-  }),
-);
 
 // logging
 app.use(morgan('dev'));

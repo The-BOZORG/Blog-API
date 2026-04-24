@@ -7,8 +7,6 @@ import Blog from '../../models/blog.js';
 import User from '../../models/user.js';
 
 const deleteBlog = asyncHandler(async (req, res) => {
-  const { content, status, title } = req.body;
-
   const userId = req.userId;
   const blogId = req.params.blogId;
 

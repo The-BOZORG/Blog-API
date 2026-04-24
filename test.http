@@ -69,3 +69,23 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWU5Z
 ###get all blogs {limit and offset is optional}
 GET http://localhost:3000/api/blog?limit=2&offset=0
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWU5ZDQ4YmQyODNhZDdiOTJmNDRiNTUiLCJyb2xlIjoidXNlciIsImlhdCI6MTc3Njk2NDEyMiwiZXhwIjoxNzc2OTY3NzIyLCJzdWIiOiJhY2Nlc3NUb2tlbiJ9.e24DlkZZ5rrG2abKtzTN1WncSUJQfyT6WMeNluO6MhM
+
+
+###get blog by user id
+GET http://localhost:3000/api/blog/user/69eb341228fc37ebe9b80559
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWU5ZDQ4YmQyODNhZDdiOTJmNDRiNTUiLCJyb2xlIjoidXNlciIsImlhdCI6MTc3Njk2NDEyMiwiZXhwIjoxNzc2OTY3NzIyLCJzdWIiOiJhY2Nlc3NUb2tlbiJ9.e24DlkZZ5rrG2abKtzTN1WncSUJQfyT6WMeNluO6MhM
+
+###update blog by id
+PUT http://localhost:3000/api/blog/69eb34783228f393d4c522ed
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWU5ZDQ4YmQyODNhZDdiOTJmNDRiNTUiLCJyb2xlIjoidXNlciIsImlhdCI6MTc3Njk2NDEyMiwiZXhwIjoxNzc2OTY3NzIyLCJzdWIiOiJhY2Nlc3NUb2tlbiJ9.e24DlkZZ5rrG2abKtzTN1WncSUJQfyT6WMeNluO6MhM
+
+{
+  "title":"this is test update",
+  "content":"this is content test update"
+}
+
+
+###delete blog (admin)
+DELETE http://localhost:3000/api/blog/69eb34783228f393d4c522ed
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWU5ZDQ4YmQyODNhZDdiOTJmNDRiNTUiLCJyb2xlIjoidXNlciIsImlhdCI6MTc3Njk2NDEyMiwiZXhwIjoxNzc2OTY3NzIyLCJzdWIiOiJhY2Nlc3NUb2tlbiJ9.e24DlkZZ5rrG2abKtzTN1WncSUJQfyT6WMeNluO6MhM
