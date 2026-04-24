@@ -1,6 +1,6 @@
 import asyncHandler from '../../middlewares/asyncHandler.js';
 import Blog from '../../models/blog.js';
-import User from '../../models/user.JS';
+import User from '../../models/user.js';
 import config from '../../configs/index.js';
 
 const getAllBlogs = asyncHandler(async (req, res) => {

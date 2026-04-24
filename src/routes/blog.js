@@ -11,7 +11,7 @@ import authenticate from '../middlewares/autentication.js';
 import validationError from '../middlewares/validation-error.js';
 
 router.post(
-  '/',
+  '/create',
   authenticate,
   authorize('admin'),
   body('title')

@@ -50,3 +50,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWU5Z
 ###delete user/id (admin)
 DELETE http://localhost:3000/api/user/69e9d48bd283ad7b92f44b55
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWU5ZDQ4YmQyODNhZDdiOTJmNDRiNTUiLCJyb2xlIjoidXNlciIsImlhdCI6MTc3Njk2NDEyMiwiZXhwIjoxNzc2OTY3NzIyLCJzdWIiOiJhY2Nlc3NUb2tlbiJ9.e24DlkZZ5rrG2abKtzTN1WncSUJQfyT6WMeNluO6MhM
+
+
+
+###post blog (admin)
+POST http://localhost:3000/api/blog/create
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWU5ZDQ4YmQyODNhZDdiOTJmNDRiNTUiLCJyb2xlIjoidXNlciIsImlhdCI6MTc3Njk2NDEyMiwiZXhwIjoxNzc2OTY3NzIyLCJzdWIiOiJhY2Nlc3NUb2tlbiJ9.e24DlkZZ5rrG2abKtzTN1WncSUJQfyT6WMeNluO6MhM
+
+{
+
+  "title":"this is test",
+  "content":"this is content test"
+
+}
+
+
+###get all blogs {limit and offset is optional}
+GET http://localhost:3000/api/blog?limit=2&offset=0
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2OWU5ZDQ4YmQyODNhZDdiOTJmNDRiNTUiLCJyb2xlIjoidXNlciIsImlhdCI6MTc3Njk2NDEyMiwiZXhwIjoxNzc2OTY3NzIyLCJzdWIiOiJhY2Nlc3NUb2tlbiJ9.e24DlkZZ5rrG2abKtzTN1WncSUJQfyT6WMeNluO6MhM
