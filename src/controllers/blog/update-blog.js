@@ -51,3 +51,5 @@ const updateBlog = asyncHandler(async (req, res) => {
     blog,
   });
 });
+
+export default updateBlog;

@@ -6,6 +6,7 @@ const router = Router();
 import createBlog from '../controllers/blog/create-blog.js';
 import getAllBlogs from '../controllers/blog/get-all-blog.js';
 import getBlogByUser from '../controllers/blog/get-blog-by-user.js';
+import updateBlog from '../controllers/blog/update-blog.js';
 
 import authorize from '../middlewares/authorize.js';
 import authenticate from '../middlewares/autentication.js';
@@ -61,5 +62,23 @@ router.get(
     .withMessage('offset must positive int'),
   validationError,
   getBlogByUser,
+);
+
+router.put(
+  '/:blogId',
+  authenticate,
+  authorize('admin'),
+  param('blogId').isMongoId().withMessage('invalid blog id'),
+  body('title')
+    .optional()
+    .isLength({ max: 120 })
+    .withMessage('title must be less than 120 characters'),
+  body('content'),
+  body('status')
+    .optional()
+    .isIn(['draft', 'published'])
+    .withMessage('status must be one of the value, draft or published'),
+  validationError,
+  updateBlog,
 );
 export default router;
