@@ -7,17 +7,17 @@ import cors from 'cors';
 
 const app = express();
 
-//custom module
+// custom modules
 import config from './configs/index.js';
 import { logger } from './lib/winstone.js';
 import limiter from './lib/limiter.js';
 import notFound from './middlewares/404.js';
 import errorHandler from './middlewares/error-handler.js';
 
-//route
+// route
 import Routes from './routes/index.js';
 
-//core
+// CORS
 const corsOptions = {
   origin(origin, callback) {
     if (
@@ -34,10 +34,10 @@ const corsOptions = {
   credentials: true,
 };
 
-// Security headers
+// security headers
 app.use(helmet());
 
-// Logging
+// logging
 app.use(morgan('dev'));
 
 // CORS
@@ -48,20 +48,21 @@ app.use(express.json({ limit: '10kb' }));
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-// Compression
+// compression
 app.use(
   compression({
     threshold: 1024,
   }),
 );
 
-// Rate limiters
+// rate limiters
 app.use(limiter);
 
-// Routes
+// main route
 app.use('/api', Routes);
 
-// Error handler
+// error handler
 app.use(notFound);
 app.use(errorHandler);
+
 export default app;
