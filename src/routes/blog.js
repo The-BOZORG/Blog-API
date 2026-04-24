@@ -7,6 +7,7 @@ import createBlog from '../controllers/blog/create-blog.js';
 import getAllBlogs from '../controllers/blog/get-all-blog.js';
 import getBlogByUser from '../controllers/blog/get-blog-by-user.js';
 import updateBlog from '../controllers/blog/update-blog.js';
+import deleteBlog from '../controllers/blog/delete-blog.js';
 
 import authorize from '../middlewares/authorize.js';
 import authenticate from '../middlewares/autentication.js';
@@ -81,4 +82,7 @@ router.put(
   validationError,
   updateBlog,
 );
+
+router.delete('/:blogId', authenticate, authorize('admin'), deleteBlog);
+
 export default router;
