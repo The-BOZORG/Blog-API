@@ -5,6 +5,7 @@ import asyncHandler from '../../middlewares/asyncHandler.js';
 import { logger } from '../../lib/winstone.js';
 import Blog from '../../models/blog.js';
 
+//XSS
 const window = new JSDOM('').window;
 const purify = createDOMPurify(window);
 
