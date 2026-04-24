@@ -4,6 +4,7 @@ import { param, query, body } from 'express-validator';
 const router = Router();
 
 import createBlog from '../controllers/blog/create-blog.js';
+import getAllBlogs from '../controllers/blog/get-all-blog.js';
 
 import authorize from '../middlewares/authorize.js';
 import authenticate from '../middlewares/autentication.js';
@@ -28,4 +29,19 @@ router.post(
   createBlog,
 );
 
+router.get(
+  '/',
+  authenticate,
+  authorize('admin', 'user'),
+  query('limit')
+    .optional()
+    .isInt({ min: 1, max: 20 })
+    .withMessage('limit must be between 1 to 50'),
+  query('offset')
+    .optional()
+    .isInt({ min: 0 })
+    .withMessage('offset must positive int'),
+  validationError,
+  getAllBlogs,
+);
 export default router;
