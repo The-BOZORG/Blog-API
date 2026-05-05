@@ -1,30 +1,26 @@
 services:
-  mongo:
-    container_name: blog-db
-    image: mongo:latest
-    restart: unless-stopped
-    env_file: .env.development
-    ports:
-      - '27017:27017'
-    volumes:
-      - ./data:/data/db
-    networks:
-      - blog-app-networks
-
   api:
-    container_name: api
     build: .
-    restart: always
-    env_file: .env.development
+    container_name: blog_api_dev
     ports:
       - '3000:3000'
     volumes:
-      - ./:/usr/src/app
+      - .:/app
+      - /app/node_modules
+    env_file:
+      - .env.development
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/blog-api
     depends_on:
       - mongo
-    networks:
-      - blog-app-networks
 
-networks:
-  blog-app-networks:
-    driver: bridge
+  mongo:
+    image: mongo:latest
+    container_name: blog_mongodb
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
