@@ -10,7 +10,7 @@ services:
     env_file:
       - .env.development
     environment:
-      - MONGO_URI=mongodb://mongo:27017/blog-api
+      MONGO_URI: ${MONGO_URI}
     depends_on:
       - mongo
 
