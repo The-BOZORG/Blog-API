@@ -16,6 +16,8 @@ import errorHandler from './middlewares/error-handler.js';
 
 // route
 import Routes from './routes/index.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerSpec from './swagger/index.js';
 
 // CORS
 const corsOptions = {
@@ -60,6 +62,15 @@ app.use(limiter);
 
 // main route
 app.use('/api', Routes);
+
+// swagger UI
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+// raw swagger json
+app.get('/api/docs.json', (req, res) => {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(swaggerSpec);
+});
 
 // error handler
 app.use(notFound);

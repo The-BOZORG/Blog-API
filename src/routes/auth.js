@@ -11,6 +11,30 @@ import refreshToken from '../controllers/auth/refresh-token.js';
 import authenticate from '../middlewares/autentication.js';
 import validationError from '../middlewares/validation-error.js';
 
+/**
+ * @openapi
+ * /auth/register:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     summary: Register a new user
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *               role:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: User created
+ */
 router.post(
   '/register',
   body('email')
@@ -36,6 +60,28 @@ router.post(
   register,
 );
 
+/**
+ * @openapi
+ * /auth/login:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     summary: Login and receive access token
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Logged in
+ */
 router.post(
   '/login',
   body('email')
@@ -55,6 +101,17 @@ router.post(
   login,
 );
 
+/**
+ * @openapi
+ * /auth/refreshToken:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     summary: Refresh access token using refresh token cookie
+ *     responses:
+ *       200:
+ *         description: Token refreshed
+ */
 router.post(
   '/refreshToken',
   cookie('refreshToken')
@@ -66,6 +123,19 @@ router.post(
   refreshToken,
 );
 
+/**
+ * @openapi
+ * /auth/logout:
+ *   post:
+ *     tags:
+ *       - Auth
+ *     summary: Logout and revoke refresh token
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Logged out
+ */
 router.post('/logout', authenticate, logout);
 
 export default router;

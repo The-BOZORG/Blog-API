@@ -13,6 +13,19 @@ import authorize from '../middlewares/authorize.js';
 import validationError from '../middlewares/validation-error.js';
 import authenticate from '../middlewares/autentication.js';
 
+/**
+ * @openapi
+ * /user/current:
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Get current authenticated user
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Current user data
+ */
 router.get(
   '/current',
   authenticate,
@@ -20,6 +33,28 @@ router.get(
   getCurrentUser,
 );
 
+/**
+ * @openapi
+ * /user:
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Get all users (admin only)
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: offset
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: List of users
+ */
 router.get(
   '/',
   authenticate,
@@ -36,6 +71,24 @@ router.get(
   getAllUsers,
 );
 
+/**
+ * @openapi
+ * /user/update:
+ *   put:
+ *     tags:
+ *       - User
+ *     summary: Update current user
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: User updated
+ */
 router.put(
   '/update',
   authenticate,
@@ -71,6 +124,25 @@ router.put(
   updateUser,
 );
 
+/**
+ * @openapi
+ * /user/{userId}:
+ *   get:
+ *     tags:
+ *       - User
+ *     summary: Get a user by id (admin only)
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: User data
+ */
 router.get(
   '/:userId',
   authenticate,
@@ -80,6 +152,25 @@ router.get(
   getUser,
 );
 
+/**
+ * @openapi
+ * /user/{userId}:
+ *   delete:
+ *     tags:
+ *       - User
+ *     summary: Delete a user by id (admin only)
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: User deleted
+ */
 router.delete(
   '/:userId',
   authenticate,

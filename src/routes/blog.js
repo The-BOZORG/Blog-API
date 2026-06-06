@@ -13,6 +13,32 @@ import authorize from '../middlewares/authorize.js';
 import authenticate from '../middlewares/autentication.js';
 import validationError from '../middlewares/validation-error.js';
 
+/**
+ * @openapi
+ * /blog/create:
+ *   post:
+ *     tags:
+ *       - Blog
+ *     summary: Create a new blog post (admin only)
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *               content:
+ *                 type: string
+ *               status:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Blog created
+ */
 router.post(
   '/create',
   authenticate,
@@ -32,6 +58,28 @@ router.post(
   createBlog,
 );
 
+/**
+ * @openapi
+ * /blog:
+ *   get:
+ *     tags:
+ *       - Blog
+ *     summary: Get all blogs
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: offset
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: List of blogs
+ */
 router.get(
   '/',
   authenticate,
@@ -48,6 +96,33 @@ router.get(
   getAllBlogs,
 );
 
+/**
+ * @openapi
+ * /blog/user/{userId}:
+ *   get:
+ *     tags:
+ *       - Blog
+ *     summary: Get blogs by user
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *       - in: query
+ *         name: offset
+ *         schema:
+ *           type: integer
+ *     responses:
+ *       200:
+ *         description: Blogs for user
+ */
 router.get(
   '/user/:userId',
   authenticate,
@@ -65,6 +140,30 @@ router.get(
   getBlogByUser,
 );
 
+/**
+ * @openapi
+ * /blog/{blogId}:
+ *   put:
+ *     tags:
+ *       - Blog
+ *     summary: Update a blog post (admin only)
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: blogId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Blog updated
+ */
 router.put(
   '/:blogId',
   authenticate,
@@ -83,6 +182,25 @@ router.put(
   updateBlog,
 );
 
+/**
+ * @openapi
+ * /blog/{blogId}:
+ *   delete:
+ *     tags:
+ *       - Blog
+ *     summary: Delete a blog post (admin only)
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: blogId
+ *         required: true
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Blog deleted
+ */
 router.delete('/:blogId', authenticate, authorize('admin'), deleteBlog);
 
 export default router;
