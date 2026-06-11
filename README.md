@@ -17,7 +17,7 @@ A powerful and secure API for a blogging platform that enables you to manage use
 
 ---
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 | Component          | Technology                  |
 | ------------------ | --------------------------- |
@@ -34,7 +34,7 @@ A powerful and secure API for a blogging platform that enables you to manage use
 
 ---
 
-## 📦 Installation & Setup
+## Installation & Setup
 
 ### Method 1: Without Docker
 
@@ -63,47 +63,22 @@ npm run start:dev
 
 ### Method 2: With Docker
 
-1. Build and run containers:
+Build and run containers:
 
 ```bash
 docker-compose up -d
 ```
 
-2. MongoDB and API are ready:
+MongoDB and API are ready:
 
 - API: `http://localhost:3000`
 - MongoDB: `mongodb://localhost:27018`
 
-3. View logs:
+View logs:
 
 ```bash
 docker-compose logs -f api
 ```
-
----
-
-## 🚀 Using the API
-
-### Swagger Documentation
-
-Access interactive API documentation here:
-
-```
-http://localhost:5000/api/docs
-```
-
-## 🔒 Security Features
-
-### Implemented Security Measures:
-
-1. **Password Encryption** - Bcrypt hashing with 10 rounds
-2. **JWT Tokens** - Separate access and refresh tokens
-3. **Limited CORS** - Only approved origins allowed
-4. **Rate Limiting** - Prevents request flooding
-5. **Helmet** - Secure HTTP headers
-6. **XSS Protection** - Content sanitization with DOMPurify
-7. **Input Validation** - All inputs validated
-8. **HTTPS Support** - Secure cookies in production
 
 ---
 
